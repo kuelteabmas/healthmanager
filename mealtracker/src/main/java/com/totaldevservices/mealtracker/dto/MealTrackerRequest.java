@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 @Data
 public class MealTrackerRequest {
 
-    private Meal meal;
+//    private Meal meal;
+    private String food;
 
     private LocalDateTime localDateTimeOfMeal;
 

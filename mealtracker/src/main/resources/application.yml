@@ -4,3 +4,27 @@ server:
 spring:
   application:
     name: mealtracker
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/mealtracker
+#    username: tds
+#    password: healthy
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
+#    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5434/mealtracker
+    username: tds
+    password: healthy
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'

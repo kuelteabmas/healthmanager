@@ -1,31 +1,37 @@
 package com.totaldevservices.mealtracker;
 
 import com.totaldevservices.mealtracker.dto.MealTrackerRequest;
+import com.totaldevservices.mealtracker.dto.Mealtracker;
 import com.totaldevservices.mealtracker.service.MealtrackerService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.totaldevservices.mealtracker.enums.Constants.MEALTRACKER_CREATED;
+import java.util.List;
+
+import static com.totaldevservices.mealtracker.enums.Constants.*;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/mealtracker")
+@RequestMapping("api/v1/mealtrackers")
+@AllArgsConstructor
 public class MealtrackerController {
 
     private MealtrackerService mealtrackerService;
 
-    @PostMapping
-    public void createMealTracker(@RequestBody MealTrackerRequest mealTrackerRequest) {
-        log.info(MEALTRACKER_CREATED.getMessage(), mealTrackerRequest);
-        mealtrackerService.createTracker(mealTrackerRequest);
+    @GetMapping
+    public List<Mealtracker> getAllMealtrackers() {
+        log.info(GET_CALL.getMessage());
+        List<Mealtracker> mealtrackers = mealtrackerService.getAllMealtrackers();
+        log.info(MEALTRACKER_FETCHED.getMessage(), mealtrackers);
+
+        return mealtrackers;
     }
 
-    @GetMapping
-    public void getAllTrackingEvents() {
-
+    @PostMapping
+    public void createMealTracker(@RequestBody MealTrackerRequest mealTrackerRequest) {
+        log.info(POST_CALL.getMessage());
+        mealtrackerService.createTracker(mealTrackerRequest);
+        log.info(MEALTRACKER_CREATED.getMessage(), mealTrackerRequest);
     }
 }

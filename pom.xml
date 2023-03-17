@@ -11,6 +11,7 @@
   <url>https://senhealthmanager.com</url>
   <modules>
     <module>mealtracker</module>
+      <module>bowel-movement</module>
   </modules>
 
   <properties>

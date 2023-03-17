@@ -1,15 +1,30 @@
 services:
-  postgres:
-    container_name: healthmanager-postgres
+  postgres-mealtracker:
+    container_name: postgres-mealtracker
     image: postgres
     environment:
       POSTGRES_USER: tds
       POSTGRES_PASSWORD: healthy
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - postgres-mealtracker:/data/postgres
     ports:
-      - "5434:5432"
+      - "5432:5432"
+    networks:
+      - healthmanager-postgresnetwork
+    restart: unless-stopped
+
+  postgres-bowelmovement:
+    container_name: postgres-bowelmovement
+    image: postgres
+    environment:
+      POSTGRES_USER: tds
+      POSTGRES_PASSWORD: healthy
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-bowelmovement:/data/postgres
+    ports:
+      - "5433:5432"
     networks:
       - healthmanager-postgresnetwork
     restart: unless-stopped
@@ -34,5 +49,6 @@ networks:
     driver: bridge
 
 volumes:
-  postgres:
+  postgres-mealtracker:
+  postgres-bowelmovement:
   pgadmin:

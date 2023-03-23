@@ -1,0 +1,19 @@
+server:
+  port: 9497
+
+spring:
+  application:
+    name: api-gateway
+  zipkin:
+    base-url: http://localhost:9411
+  cloud:
+    gateway:
+      routes:
+        - id: mealtracker
+          uri: lb://MEALTRACKER
+          predicates:
+            - Path=/api/v1/mealtrackers/**
+        - id: bowelmovement
+          uri: lb://BOWELMOVEMENT
+          predicates:
+            - Path=/api/v1/bowelmovements/**

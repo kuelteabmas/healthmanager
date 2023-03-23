@@ -13,6 +13,7 @@
     <module>mealtracker</module>
       <module>bowel-movement</module>
       <module>apigw</module>
+    <module>eureka-server</module>
   </modules>
 
   <properties>

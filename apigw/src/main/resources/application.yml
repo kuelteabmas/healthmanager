@@ -17,3 +17,10 @@ spring:
           uri: lb://BOWELMOVEMENT
           predicates:
             - Path=/api/v1/bowelmovements/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

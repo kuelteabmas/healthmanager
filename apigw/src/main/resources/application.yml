@@ -17,6 +17,10 @@ spring:
           uri: lb://BOWELMOVEMENT
           predicates:
             - Path=/api/v1/bowelmovements/**
+        - id: waterintaketracker
+          uri: lb://WATERINTAKETRACKER
+          predicates:
+            - Path=/api/v1/waterintaketrackers/**
 
 eureka:
   client:

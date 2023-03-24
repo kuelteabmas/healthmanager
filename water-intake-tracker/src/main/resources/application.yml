@@ -5,7 +5,7 @@ spring:
   application:
     name: waterintaketracker
   datasource:
-    url: jdbc:postgresql://localhost:5433/waterintaketracker
+    url: jdbc:postgresql://localhost:5434/waterintaketracker
     username: tds
     password: healthy
   jpa:

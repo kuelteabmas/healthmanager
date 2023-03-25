@@ -15,7 +15,7 @@
     <module>clients</module>
     <module>mealtracker</module>
     <module>bowel-movement</module>
-    <module>water-intake-tracker</module>
+    <module>health-summary</module>
   </modules>
 
   <properties>

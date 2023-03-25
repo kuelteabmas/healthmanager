@@ -14,6 +14,7 @@
       <module>bowel-movement</module>
       <module>apigw</module>
     <module>eureka-server</module>
+      <module>water-intake-tracker</module>
   </modules>
 
   <properties>

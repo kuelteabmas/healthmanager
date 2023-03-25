@@ -44,6 +44,21 @@ services:
       - healthmanager-postgresnetwork
     restart: unless-stopped
 
+  postgres-healthsummary:
+    container_name: postgres-healthsummary
+    image: postgres
+    environment:
+      POSTGRES_USER: tds
+      POSTGRES_PASSWORD: healthy
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-healthsummary:/data/postgres
+    ports:
+      - "5435:5432"
+    networks:
+      - healthmanager-postgresnetwork
+    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -76,4 +91,5 @@ volumes:
   postgres-mealtracker:
   postgres-bowelmovement:
   postgres-waterintaketracker:
+  postgres-healthsummary:
   pgadmin:

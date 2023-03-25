@@ -21,6 +21,10 @@ spring:
           uri: lb://WATERINTAKETRACKER
           predicates:
             - Path=/api/v1/waterintaketrackers/**
+        - id: healthsummary
+          uri: lb://HEALTHSUMMARY
+          predicates:
+            - Path=/api/v1/health-summary/**
 
 eureka:
   client:

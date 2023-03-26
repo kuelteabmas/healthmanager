@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -27,8 +27,8 @@ public class HealthSummary {
     @Column(name = "health_summary_id")
     private UUID id;
 
-    @Column(name = "datetime")
-    private LocalDateTime localDateTime;
+    @Column(name = "date")
+    private LocalDate localDate;
 
     @Column(name = "total_meals_for_day")
     private int totalMeals;

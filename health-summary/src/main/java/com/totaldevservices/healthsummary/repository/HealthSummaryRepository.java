@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface HealthSummaryRepository extends JpaRepository<HealthSummary, UUID> {
 
-    List<HealthSummary> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
+    List<HealthSummary> findAllByDateBetween(LocalDate startDate,
+                                             LocalDate endDate);
 }

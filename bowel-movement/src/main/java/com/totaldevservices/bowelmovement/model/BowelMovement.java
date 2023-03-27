@@ -1,4 +1,4 @@
-package com.totaldevservices.bowelmovement.dto;
+package com.totaldevservices.bowelmovement.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

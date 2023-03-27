@@ -1,6 +1,6 @@
 package com.totaldevservices.mealtracker;
 
-import com.totaldevservices.mealtracker.dto.Mealtracker;
+import com.totaldevservices.mealtracker.model.Mealtracker;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

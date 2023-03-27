@@ -1,10 +1,12 @@
 package com.totaldevservices.mealtracker;
 
 import com.totaldevservices.mealtracker.dto.MealTrackerRequest;
-import com.totaldevservices.mealtracker.dto.Mealtracker;
+import com.totaldevservices.mealtracker.dto.MealtrackerResponse;
 import com.totaldevservices.mealtracker.service.MealtrackerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,18 +22,21 @@ public class MealtrackerController {
     private MealtrackerService mealtrackerService;
 
     @GetMapping
-    public List<Mealtracker> getAllMealtrackers() {
+    public ResponseEntity<List<MealtrackerResponse>> getAllMealtrackers() {
         log.info(GET_CALL.getMessage());
-        List<Mealtracker> mealtrackers = mealtrackerService.getAllMealtrackers();
-        log.info(MEALTRACKER_FETCHED.getMessage(), mealtrackers);
 
-        return mealtrackers;
+        List<MealtrackerResponse> responses = mealtrackerService.getAllMealtrackers();
+
+        log.info(MEALTRACKER_FETCHED.getMessage(), responses);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
     @PostMapping
     public void createMealTracker(@RequestBody MealTrackerRequest mealTrackerRequest) {
         log.info(POST_CALL.getMessage());
+
         mealtrackerService.createTracker(mealTrackerRequest);
+
         log.info(MEALTRACKER_CREATED.getMessage(), mealTrackerRequest);
     }
 }

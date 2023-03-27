@@ -1,4 +1,4 @@
-package com.totaldevservices.waterintaketracker.dto;
+package com.totaldevservices.waterintaketracker.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +35,9 @@ public class WaterIntakeTracker {
     )
     @Column(name = "waterintaketracker_id")
     private UUID id;
+
+    @Column(name = "amount_of_water")
+    private double amountOfWater;
 
     @Column(name = "datetime")
     private LocalDateTime localDateTimeOfWaterIntake;

@@ -1,4 +1,4 @@
-package com.totaldevservices.mealtracker.dto;
+package com.totaldevservices.mealtracker.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

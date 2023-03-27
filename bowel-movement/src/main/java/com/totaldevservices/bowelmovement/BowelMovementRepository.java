@@ -1,6 +1,6 @@
 package com.totaldevservices.bowelmovement;
 
-import com.totaldevservices.bowelmovement.dto.BowelMovement;
+import com.totaldevservices.bowelmovement.model.BowelMovement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

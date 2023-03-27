@@ -1,10 +1,10 @@
 package com.totaldevservices.bowelmovement.service;
 
-import com.totaldevservices.bowelmovement.dto.BowelMovement;
+import com.totaldevservices.bowelmovement.dto.BowelMovementResponse;
 
 import java.util.List;
 
 public interface BowelMovementService {
 
-    List<BowelMovement> getAllBowelMovementJournalItems();
+    List<BowelMovementResponse> getAllBowelMovementJournalItems();
 }

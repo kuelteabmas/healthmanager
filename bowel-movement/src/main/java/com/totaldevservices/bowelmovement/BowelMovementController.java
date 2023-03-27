@@ -1,9 +1,11 @@
 package com.totaldevservices.bowelmovement;
 
-import com.totaldevservices.bowelmovement.dto.BowelMovement;
+import com.totaldevservices.bowelmovement.dto.BowelMovementResponse;
 import com.totaldevservices.bowelmovement.service.BowelMovementService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,11 +24,13 @@ public class BowelMovementController {
     private BowelMovementService bmService;
 
     @GetMapping
-    public List<BowelMovement> getAllBowelMovements() {
-        log.info(GET_CALL.getMessage());
-        List<BowelMovement> bmJournalItems = bmService.getAllBowelMovementJournalItems();
-        log.info(BOWELMOVEMENT_FETCHED.getMessage(), bmJournalItems);
+    public ResponseEntity<List<BowelMovementResponse>> getAllBowelMovements() {
 
-        return bmJournalItems;
+        log.info(GET_CALL.getMessage());
+
+        List<BowelMovementResponse> responses = bmService.getAllBowelMovementJournalItems();
+
+        log.info(BOWELMOVEMENT_FETCHED.getMessage(), responses);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 }

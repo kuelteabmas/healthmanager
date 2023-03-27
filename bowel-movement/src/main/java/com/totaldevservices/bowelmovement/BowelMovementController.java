@@ -1,19 +1,17 @@
 package com.totaldevservices.bowelmovement;
 
+import com.totaldevservices.bowelmovement.dto.BowelMovementRequest;
 import com.totaldevservices.bowelmovement.dto.BowelMovementResponse;
 import com.totaldevservices.bowelmovement.service.BowelMovementService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.totaldevservices.bowelmovement.enums.Constants.BOWELMOVEMENT_FETCHED;
-import static com.totaldevservices.bowelmovement.enums.Constants.GET_CALL;
+import static com.totaldevservices.bowelmovement.enums.Constants.*;
 
 @Slf4j
 @RestController
@@ -32,5 +30,15 @@ public class BowelMovementController {
 
         log.info(BOWELMOVEMENT_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public void createBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
+
+        log.info(POST_CALL.getMessage());
+
+        bmService.createBowelMovementJournalItem(request);
+
+        log.info(BOWELMOVEMENT_CREATED.getMessage(), request);
     }
 }

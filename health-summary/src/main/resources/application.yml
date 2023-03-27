@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: waterintaketracker
+    name: healthsummary
   datasource:
     url: jdbc:postgresql://localhost:5435/healthsummary
     username: tds

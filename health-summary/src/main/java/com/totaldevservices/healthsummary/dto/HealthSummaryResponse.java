@@ -1,26 +1,20 @@
 package com.totaldevservices.healthsummary.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 public class HealthSummaryResponse {
 
-    private UUID healthSummaryId;
-
     private LocalDate localDateTime;
-
     private int totalMeals;
-
     private int totalBowelMovements;
-
     private double totalWaterTook;
 }

@@ -1,7 +1,11 @@
 package com.totaldevservices.healthsummary.service;
 
+import com.totaldevservices.clients.bowelmovement.BowelMovementClient;
+import com.totaldevservices.clients.bowelmovement.BowelMovementResponse;
 import com.totaldevservices.clients.mealtracker.MealtrackerClient;
 import com.totaldevservices.clients.mealtracker.MealtrackerResponse;
+import com.totaldevservices.clients.waterintaketracker.WaterIntakeTrackerClient;
+import com.totaldevservices.clients.waterintaketracker.WaterIntakeTrackerResponse;
 import com.totaldevservices.healthsummary.dto.HealthSummaryResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,8 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
 
 //    private HealthSummaryRepository repository;
     private final MealtrackerClient mealtrackerClient;
+    private final BowelMovementClient bowelMovementClient;
+    private final WaterIntakeTrackerClient waterIntakeTrackerClient;
 
     @Override
     public List<HealthSummaryResponse> getHealthSummaryByDateRange(LocalDate startDate,
@@ -23,18 +29,18 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
 
         List<HealthSummaryResponse> healthSummaryList = new ArrayList<>();
 
-        // TODO: fetch number of Meals
         List<MealtrackerResponse> mealtrackerItems = mealtrackerClient.getAllMealtrackers();
+        List<BowelMovementResponse> bmJournalItems = bowelMovementClient.getAllBowelMovements();
+        List<WaterIntakeTrackerResponse> waterIntakeTrackerItems = waterIntakeTrackerClient.getAllWaterIntakeTrackerItems();
 
-        // TODO: fetch number of Bowel Movements
-
-        // TODO: fetch number of Water intakes
+        // TODO: get the amount of water user drank, not the amount of times user drank
 
         HealthSummaryResponse summary = new HealthSummaryResponse();
+        summary.setLocalDateTime(LocalDate.now());
         summary.setTotalMeals(mealtrackerItems.size());
+        summary.setTotalBowelMovements(bmJournalItems.size());
 
         healthSummaryList.add(summary);
-
 
         return healthSummaryList;
     }

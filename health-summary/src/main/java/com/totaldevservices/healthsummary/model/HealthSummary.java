@@ -38,4 +38,7 @@ public class HealthSummary {
 
     @Column(name = "total_water_for_day")
     private double totalWaterTook;
+
+    @Column(name = "total_amount_of_times_drinking")
+    private int totalAmountOfTimesDrinking;
 }

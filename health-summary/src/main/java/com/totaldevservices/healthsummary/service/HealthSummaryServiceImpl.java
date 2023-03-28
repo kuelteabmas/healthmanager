@@ -23,6 +23,25 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
     private final BowelMovementClient bowelMovementClient;
     private final WaterIntakeTrackerClient waterIntakeTrackerClient;
 
+    public HealthSummaryResponse getTotalHealthSummary() {
+
+            HealthSummaryResponse healthSummary = new HealthSummaryResponse();
+
+            List<MealtrackerResponse> mealtrackerItems = mealtrackerClient.getAllMealtrackers();
+            List<BowelMovementResponse> bmJournalItems = bowelMovementClient.getAllBowelMovements();
+            List<WaterIntakeTrackerResponse> waterIntakeTrackerItems = waterIntakeTrackerClient.getAllWaterIntakeTrackerItems();
+
+            // TODO: get the amount of water user drank, not the amount of times user drank
+
+            healthSummary.setHealthSummaryCheckDate(LocalDate.now());
+            healthSummary.setTotalMeals(mealtrackerItems.size());
+            healthSummary.setTotalBowelMovements(bmJournalItems.size());
+            healthSummary.setTotalAmountOfTimesDrinking(waterIntakeTrackerItems.size());
+
+            return healthSummary;
+    }
+
+    // TODO: Needs rework
     @Override
     public List<HealthSummaryResponse> getHealthSummaryByDateRange(LocalDate startDate,
                                                                    LocalDate endDate) {
@@ -36,9 +55,10 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
         // TODO: get the amount of water user drank, not the amount of times user drank
 
         HealthSummaryResponse summary = new HealthSummaryResponse();
-        summary.setLocalDateTime(LocalDate.now());
+        summary.setHealthSummaryCheckDate(LocalDate.now());
         summary.setTotalMeals(mealtrackerItems.size());
         summary.setTotalBowelMovements(bmJournalItems.size());
+        summary.setTotalAmountOfTimesDrinking(waterIntakeTrackerItems.size());
 
         healthSummaryList.add(summary);
 

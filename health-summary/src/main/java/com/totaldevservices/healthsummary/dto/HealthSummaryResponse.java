@@ -13,8 +13,9 @@ import java.time.LocalDate;
 @Setter
 public class HealthSummaryResponse {
 
-    private LocalDate localDateTime;
+    private LocalDate healthSummaryCheckDate;
     private int totalMeals;
     private int totalBowelMovements;
     private double totalWaterTook;
+    private int totalAmountOfTimesDrinking;
 }

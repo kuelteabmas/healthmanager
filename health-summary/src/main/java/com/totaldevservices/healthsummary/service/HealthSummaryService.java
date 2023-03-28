@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface HealthSummaryService {
 
+    HealthSummaryResponse getTotalHealthSummary();
+
     List<HealthSummaryResponse> getHealthSummaryByDateRange(LocalDate startDate,
                                                             LocalDate endDate);
 }

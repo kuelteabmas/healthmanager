@@ -26,6 +26,18 @@ public class HealthSummaryController {
 
     private HealthSummaryService healthSummaryService;
 
+    @GetMapping("/total")
+    public ResponseEntity<HealthSummaryResponse> getTotalHealthSummary() {
+
+        log.info(GET_CALL.getMessage());
+
+        HealthSummaryResponse healthSummaryResponse = healthSummaryService.getTotalHealthSummary();
+
+        log.info(HEALTH_SUMMARY_FETCHED.getMessage());
+
+        return new ResponseEntity<>(healthSummaryResponse, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<HealthSummaryResponse>> getHealthSummaryByDateRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,

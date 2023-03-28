@@ -1,11 +1,14 @@
 package com.totaldevservices.waterintaketracker.service;
 
 import com.totaldevservices.waterintaketracker.WaterIntakeTrackerRepository;
+import com.totaldevservices.waterintaketracker.dto.WaterIntakeTrackerRequest;
 import com.totaldevservices.waterintaketracker.dto.WaterIntakeTrackerResponse;
 import com.totaldevservices.waterintaketracker.mapper.WaterIntakeTrackerMapper;
+import com.totaldevservices.waterintaketracker.model.WaterIntakeTracker;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,5 +27,17 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
                 .collect(Collectors.toList());
 
         return waterIntakeTrackerResponses;
+    }
+
+    @Override
+    public void createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
+        WaterIntakeTracker waterIntakeTracker = new WaterIntakeTracker().builder()
+                .localDateTimeOfWaterIntake(LocalDateTime.now())
+                .amountOfWater(request.getAmountOfWater())
+                .typeOfWater(request.getTypeOfWater())
+                .waterEnhancement(request.getWaterEnhancement())
+                .build();
+
+        repository.save(waterIntakeTracker);
     }
 }

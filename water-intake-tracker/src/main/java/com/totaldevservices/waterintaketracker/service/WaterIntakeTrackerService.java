@@ -9,5 +9,5 @@ public interface WaterIntakeTrackerService {
 
     List<WaterIntakeTrackerResponse> getAllWaterIntakeTrackerItems();
 
-    void createWaterIntakeTracker(WaterIntakeTrackerRequest request);
+    WaterIntakeTrackerResponse createWaterIntakeTracker(WaterIntakeTrackerRequest request);
 }

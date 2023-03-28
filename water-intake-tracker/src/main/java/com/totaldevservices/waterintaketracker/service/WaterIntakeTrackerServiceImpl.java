@@ -30,7 +30,7 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
     }
 
     @Override
-    public void createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
+    public WaterIntakeTrackerResponse createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
         WaterIntakeTracker waterIntakeTracker = new WaterIntakeTracker().builder()
                 .localDateTimeOfWaterIntake(LocalDateTime.now())
                 .amountOfWater(request.getAmountOfWater())
@@ -39,5 +39,8 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
                 .build();
 
         repository.save(waterIntakeTracker);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTracker);
+        return response;
     }
 }

@@ -32,12 +32,18 @@ public class WaterIntakeTrackerController {
     }
 
     @PostMapping
-    public void createWaterIntakeTracker(@RequestBody WaterIntakeTrackerRequest request) {
+    public ResponseEntity<WaterIntakeTrackerResponse> createWaterIntakeTracker(@RequestBody WaterIntakeTrackerRequest request) {
 
         log.info(POST_CALL.getMessage());
 
-        waterIntakeTrackerService.createWaterIntakeTracker(request);
+        WaterIntakeTrackerResponse response = waterIntakeTrackerService.createWaterIntakeTracker(request);
 
-        log.info(WATERINTAKETRACKER_CREATED.getMessage(), request);
+        log.info(WATERINTAKETRACKER_CREATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+//    @PutMapping()
+//    public void updateWaterIntakeTracker(@RequestParam UUID id) {
+//
+//    }
 }

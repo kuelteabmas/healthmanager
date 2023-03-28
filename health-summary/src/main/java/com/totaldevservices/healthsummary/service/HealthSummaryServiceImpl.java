@@ -12,20 +12,25 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class HealthSummaryServiceImpl implements HealthSummaryService {
 
-//    private HealthSummaryRepository repository;
     private final MealtrackerClient mealtrackerClient;
     private final BowelMovementClient bowelMovementClient;
     private final WaterIntakeTrackerClient waterIntakeTrackerClient;
 
+    // NOTE:
+    // Before saving to database, need to refactor service method to first check db for data in expected response
+    // before making http calls to other microservice and saving duplicate data
     public HealthSummaryResponse getTotalHealthSummary() {
 
-            HealthSummaryResponse healthSummary = new HealthSummaryResponse();
+            HealthSummaryResponse healthSummaryResponse = new HealthSummaryResponse();
 
             List<MealtrackerResponse> mealtrackerItems = mealtrackerClient.getAllMealtrackers();
             List<BowelMovementResponse> bmJournalItems = bowelMovementClient.getAllBowelMovements();
@@ -33,12 +38,12 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
 
             // TODO: get the amount of water user drank, not the amount of times user drank
 
-            healthSummary.setHealthSummaryCheckDate(LocalDate.now());
-            healthSummary.setTotalMeals(mealtrackerItems.size());
-            healthSummary.setTotalBowelMovements(bmJournalItems.size());
-            healthSummary.setTotalAmountOfTimesDrinking(waterIntakeTrackerItems.size());
+            healthSummaryResponse.setHealthSummaryCheckDate(LocalDate.now());
+            healthSummaryResponse.setTotalMeals(mealtrackerItems.size());
+            healthSummaryResponse.setTotalBowelMovements(bmJournalItems.size());
+            healthSummaryResponse.setTotalAmountOfTimesDrinking(waterIntakeTrackerItems.size());
 
-            return healthSummary;
+            return healthSummaryResponse;
     }
 
     // TODO: Needs rework
@@ -46,7 +51,7 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
     public List<HealthSummaryResponse> getHealthSummaryByDateRange(LocalDate startDate,
                                                                    LocalDate endDate) {
 
-        List<HealthSummaryResponse> healthSummaryList = new ArrayList<>();
+        List<HealthSummaryResponse> summaryResponses = new ArrayList<>();
 
         List<MealtrackerResponse> mealtrackerItems = mealtrackerClient.getAllMealtrackers();
         List<BowelMovementResponse> bmJournalItems = bowelMovementClient.getAllBowelMovements();
@@ -54,14 +59,36 @@ public class HealthSummaryServiceImpl implements HealthSummaryService {
 
         // TODO: get the amount of water user drank, not the amount of times user drank
 
-        HealthSummaryResponse summary = new HealthSummaryResponse();
-        summary.setHealthSummaryCheckDate(LocalDate.now());
-        summary.setTotalMeals(mealtrackerItems.size());
-        summary.setTotalBowelMovements(bmJournalItems.size());
-        summary.setTotalAmountOfTimesDrinking(waterIntakeTrackerItems.size());
+        // check how many days between startDate and endDate
+        // for each day and each list, add to HealthSummary obj data that corresponds to matching day
 
-        healthSummaryList.add(summary);
+        Map<LocalDate, List<MealtrackerResponse>> mealtrackerItemsByDateMap = mealtrackerItems.stream()
+                .collect(Collectors.groupingBy(mealtrackerItem -> mealtrackerItem.getLocalDateTimeOfMeal().toLocalDate()));
 
-        return healthSummaryList;
+        Map<LocalDate, List<BowelMovementResponse>> bmJournalItemsByDateMap = bmJournalItems.stream()
+                .collect(Collectors.groupingBy((bmJournalItem -> bmJournalItem.getLocalDateTimeOfBM().toLocalDate())));
+
+        Map<LocalDate, List<WaterIntakeTrackerResponse>> waterIntakeTrackerItemsByDateMap = waterIntakeTrackerItems.stream()
+                .collect(Collectors.groupingBy(waterIntakeTrackerItem -> waterIntakeTrackerItem.getLocalDateTimeOfWaterIntake().toLocalDate()));
+
+        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+            HealthSummaryResponse summaryResponse = new HealthSummaryResponse();
+
+            summaryResponse.setHealthSummaryCheckDate(date);
+
+            List<MealtrackerResponse> mealtrackerResponses = mealtrackerItemsByDateMap.getOrDefault(date, Collections.emptyList());
+            summaryResponse.setTotalMeals(mealtrackerResponses.size());
+
+            List<BowelMovementResponse> bowelMovementResponses = bmJournalItemsByDateMap.getOrDefault(date, Collections.emptyList());
+            summaryResponse.setTotalBowelMovements(bowelMovementResponses.size());
+
+            List<WaterIntakeTrackerResponse> waterIntakeTrackerResponses =
+                    waterIntakeTrackerItemsByDateMap.getOrDefault(date, Collections.emptyList());
+            summaryResponse.setTotalAmountOfTimesDrinking(waterIntakeTrackerResponses.size());
+
+            summaryResponses.add(summaryResponse);
+        }
+
+        return summaryResponses;
     }
 }

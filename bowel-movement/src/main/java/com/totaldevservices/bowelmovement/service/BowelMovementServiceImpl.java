@@ -54,4 +54,21 @@ public class BowelMovementServiceImpl implements BowelMovementService {
         BowelMovementResponse response = bowelMovementMapper.apply(bmJournalItem);
         return response;
     }
+
+    @Override
+    public BowelMovementResponse updateBowelMovementJournalItem(BowelMovementRequest request) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(request.getId());
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        BowelMovement bowelMovement = bowelMovementOptional.get();
+        bowelMovement.setBloodInStool(request.isBloodInStool());
+        bowelMovement.setStoolNature(request.getStoolNature());
+        bowelMovement.setLocalDateTimeOfBM(LocalDateTime.now());
+
+        repository.save(bowelMovement);
+
+        BowelMovementResponse bowelMovementResponse = bowelMovementMapper.apply(bowelMovementOptional.get());
+        return bowelMovementResponse;
+    }
 }

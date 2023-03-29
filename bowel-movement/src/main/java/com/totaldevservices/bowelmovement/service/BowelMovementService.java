@@ -13,4 +13,6 @@ public interface BowelMovementService {
     BowelMovementResponse getBowelMovementJournalItemById(UUID id);
 
     BowelMovementResponse createBowelMovementJournalItem(BowelMovementRequest request);
+
+    BowelMovementResponse updateBowelMovementJournalItem(BowelMovementRequest request);
 }

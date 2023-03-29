@@ -51,6 +51,16 @@ public class BowelMovementController {
         BowelMovementResponse response = bmService.createBowelMovementJournalItem(request);
 
         log.info(BOWELMOVEMENT_CREATED.getMessage(), request);
-        return new ResponseEntity<>(response, HttpStatus.OK)
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<BowelMovementResponse> updateBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        BowelMovementResponse response = bmService.updateBowelMovementJournalItem(request);
+
+        log.info(BOWELMOVEMENT_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

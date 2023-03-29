@@ -10,4 +10,6 @@ public interface WaterIntakeTrackerService {
     List<WaterIntakeTrackerResponse> getAllWaterIntakeTrackerItems();
 
     WaterIntakeTrackerResponse createWaterIntakeTracker(WaterIntakeTrackerRequest request);
+
+    WaterIntakeTrackerResponse updateWaterIntakeTracker(WaterIntakeTrackerRequest request);
 }

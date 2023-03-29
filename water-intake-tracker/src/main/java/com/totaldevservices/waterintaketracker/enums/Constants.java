@@ -9,9 +9,11 @@ public enum Constants {
 
     WATERINTAKETRACKER_CREATED("Water Intake Tracker created {}"),
     WATERINTAKETRACKER_FETCHED("Water Intake Tracker fetched {}"),
+    WATERINTAKETRACKER_UPDATED("Water Intake Tracker updated {}"),
 
     GET_CALL("Starting GET call"),
-    POST_CALL("Starting POST call");
+    POST_CALL("Starting POST call"),
+    PUT_CALL("Starting PUT call");
 
     private final String message;
 }

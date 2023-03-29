@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.totaldevservices.waterintaketracker.enums.Constants.*;
 
@@ -42,8 +43,14 @@ public class WaterIntakeTrackerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PutMapping()
-//    public void updateWaterIntakeTracker(@RequestParam UUID id) {
-//
-//    }
+    @PutMapping
+    public ResponseEntity<WaterIntakeTrackerResponse> updateWaterIntakeTracker(@RequestBody WaterIntakeTrackerRequest request) {
+
+        log.info(PUT_CALL.getMessage());
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerService.updateWaterIntakeTracker(request);
+
+        log.info(WATERINTAKETRACKER_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

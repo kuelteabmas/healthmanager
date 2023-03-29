@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +38,24 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
                 .typeOfWater(request.getTypeOfWater())
                 .waterEnhancement(request.getWaterEnhancement())
                 .build();
+
+        repository.save(waterIntakeTracker);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTracker);
+        return response;
+    }
+
+    @Override
+    public WaterIntakeTrackerResponse updateWaterIntakeTracker(WaterIntakeTrackerRequest request) {
+        Optional<WaterIntakeTracker> waterIntakeTrackerOptional = repository.findById(request.getId());
+
+        // TODO: Validate requestBody
+
+        WaterIntakeTracker waterIntakeTracker = waterIntakeTrackerOptional.get();
+        waterIntakeTracker.setAmountOfWater(request.getAmountOfWater());
+        waterIntakeTracker.setLocalDateTimeOfWaterIntake(LocalDateTime.now());
+        waterIntakeTracker.setTypeOfWater(request.getTypeOfWater());
+        waterIntakeTracker.setWaterEnhancement(request.getWaterEnhancement());
 
         repository.save(waterIntakeTracker);
 

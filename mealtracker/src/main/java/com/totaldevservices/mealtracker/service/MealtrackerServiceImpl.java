@@ -39,7 +39,7 @@ public class MealtrackerServiceImpl implements MealtrackerService {
     }
 
     @Override
-    public void createTracker(MealTrackerRequest request) {
+    public MealtrackerResponse createTracker(MealTrackerRequest request) {
 
         Mealtracker mealtracker = Mealtracker.builder()
                 .food(request.getFood())
@@ -51,5 +51,8 @@ public class MealtrackerServiceImpl implements MealtrackerService {
         // todo: check if tracker is valid
 
         mealTrackerRepository.save(mealtracker);
+
+        MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtracker);
+        return mealtrackerResponse;
     }
 }

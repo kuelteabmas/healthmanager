@@ -43,11 +43,12 @@ public class MealtrackerController {
     }
 
     @PostMapping
-    public void createMealTracker(@RequestBody MealTrackerRequest mealTrackerRequest) {
+    public ResponseEntity<MealtrackerResponse> createMealTracker(@RequestBody MealTrackerRequest request) {
         log.info(POST_CALL.getMessage());
 
-        mealtrackerService.createTracker(mealTrackerRequest);
+        MealtrackerResponse response = mealtrackerService.createTracker(request);
 
-        log.info(MEALTRACKER_CREATED.getMessage(), mealTrackerRequest);
+        log.info(MEALTRACKER_CREATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

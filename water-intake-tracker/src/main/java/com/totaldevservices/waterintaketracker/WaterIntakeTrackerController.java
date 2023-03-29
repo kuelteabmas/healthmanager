@@ -28,8 +28,18 @@ public class WaterIntakeTrackerController {
 
         List<WaterIntakeTrackerResponse> responses = waterIntakeTrackerService.getAllWaterIntakeTrackerItems();
 
-        log.info(WATERINTAKETRACKER_CREATED.getMessage(), responses);
+        log.info(WATERINTAKETRACKER_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WaterIntakeTrackerResponse> getWaterIntakeTrackerItemById(@PathVariable UUID id) {
+        log.info(GET_CALL.getMessage());
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerService.getWaterIntakeTrackerItemById(id);
+
+        log.info(WATERINTAKETRACKER_FETCHED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping

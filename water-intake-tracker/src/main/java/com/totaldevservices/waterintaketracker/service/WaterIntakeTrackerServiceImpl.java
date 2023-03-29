@@ -32,6 +32,14 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
     }
 
     @Override
+    public WaterIntakeTrackerResponse getWaterIntakeTrackerItemById(UUID id) {
+        Optional<WaterIntakeTracker> waterIntakeTrackerOptional = repository.findById(id);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTrackerOptional.get());
+        return response;
+    }
+
+    @Override
     public WaterIntakeTrackerResponse createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
         WaterIntakeTracker waterIntakeTracker = new WaterIntakeTracker().builder()
                 .localDateTimeOfWaterIntake(LocalDateTime.now())

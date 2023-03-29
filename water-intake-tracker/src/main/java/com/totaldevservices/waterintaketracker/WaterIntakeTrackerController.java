@@ -53,4 +53,15 @@ public class WaterIntakeTrackerController {
         log.info(WATERINTAKETRACKER_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWaterIntakeTracker(@PathVariable UUID id) {
+
+        log.info(DELETE_CALL.getMessage());
+
+        waterIntakeTrackerService.deleteWaterIntakeTracker(id);
+
+        log.info(WATERINTAKETRACKER_DELETED.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

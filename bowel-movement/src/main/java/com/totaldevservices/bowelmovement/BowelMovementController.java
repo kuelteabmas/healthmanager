@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.totaldevservices.bowelmovement.enums.Constants.*;
 
@@ -30,6 +31,16 @@ public class BowelMovementController {
 
         log.info(BOWELMOVEMENT_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BowelMovementResponse> getMealtrackerById(@PathVariable UUID id) {
+        log.info(GET_CALL.getMessage());
+
+        BowelMovementResponse response = bmService.getBowelMovementJournalItemById(id);
+
+        log.info(BOWELMOVEMENT_FETCHED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping

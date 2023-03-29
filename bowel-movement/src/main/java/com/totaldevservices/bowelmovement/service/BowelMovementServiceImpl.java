@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +29,16 @@ public class BowelMovementServiceImpl implements BowelMovementService {
                 .collect(Collectors.toList());
 
         return bmJournalItemsResponses;
+    }
+
+    @Override
+    public BowelMovementResponse getBowelMovementJournalItemById(UUID id) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        BowelMovementResponse response = bowelMovementMapper.apply(bowelMovementOptional.get());
+        return response;
     }
 
     @Override

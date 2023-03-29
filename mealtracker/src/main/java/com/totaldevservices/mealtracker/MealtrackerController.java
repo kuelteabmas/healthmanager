@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.totaldevservices.mealtracker.enums.Constants.*;
 
@@ -31,12 +32,44 @@ public class MealtrackerController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MealtrackerResponse> getMealtrackerById(@PathVariable UUID id) {
+        log.info(GET_CALL.getMessage());
+
+        MealtrackerResponse response = mealtrackerService.getMealtrackerById(id);
+
+        log.info(MEALTRACKER_FETCHED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PostMapping
-    public void createMealTracker(@RequestBody MealTrackerRequest mealTrackerRequest) {
+    public ResponseEntity<MealtrackerResponse> createMealTracker(@RequestBody MealTrackerRequest request) {
         log.info(POST_CALL.getMessage());
 
-        mealtrackerService.createTracker(mealTrackerRequest);
+        MealtrackerResponse response = mealtrackerService.createTracker(request);
 
-        log.info(MEALTRACKER_CREATED.getMessage(), mealTrackerRequest);
+        log.info(MEALTRACKER_CREATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<MealtrackerResponse> updateMealtracker(@RequestBody MealTrackerRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        MealtrackerResponse response = mealtrackerService.updateMealtracker(request);
+
+        log.info(MEALTRACKER_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMealtracker(@PathVariable UUID id) {
+
+        log.info(DELETE_CALL.getMessage());
+
+        mealtrackerService.deleteMealtracker(id);
+
+        log.info(MEALTRACKER_DELETED.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

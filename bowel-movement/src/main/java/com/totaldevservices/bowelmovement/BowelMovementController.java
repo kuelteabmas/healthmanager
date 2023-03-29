@@ -33,12 +33,13 @@ public class BowelMovementController {
     }
 
     @PostMapping
-    public void createBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
+    public ResponseEntity<BowelMovementResponse> createBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
 
         log.info(POST_CALL.getMessage());
 
-        bmService.createBowelMovementJournalItem(request);
+        BowelMovementResponse response = bmService.createBowelMovementJournalItem(request);
 
         log.info(BOWELMOVEMENT_CREATED.getMessage(), request);
+        return new ResponseEntity<>(response, HttpStatus.OK)
     }
 }

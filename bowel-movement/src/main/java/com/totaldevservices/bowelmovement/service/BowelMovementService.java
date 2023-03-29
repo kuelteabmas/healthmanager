@@ -9,5 +9,5 @@ public interface BowelMovementService {
 
     List<BowelMovementResponse> getAllBowelMovementJournalItems();
 
-    void createBowelMovementJournalItem(BowelMovementRequest request);
+    BowelMovementResponse createBowelMovementJournalItem(BowelMovementRequest request);
 }

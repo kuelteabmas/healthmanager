@@ -30,7 +30,7 @@ public class BowelMovementServiceImpl implements BowelMovementService {
     }
 
     @Override
-    public void createBowelMovementJournalItem(BowelMovementRequest request) {
+    public BowelMovementResponse createBowelMovementJournalItem(BowelMovementRequest request) {
         BowelMovement bmJournalItem = new BowelMovement().builder()
                 .localDateTimeOfBM(LocalDateTime.now())
                 .stoolNature(request.getStoolNature())
@@ -38,5 +38,8 @@ public class BowelMovementServiceImpl implements BowelMovementService {
                 .build();
 
         repository.save(bmJournalItem);
+
+        BowelMovementResponse response = bowelMovementMapper.apply(bmJournalItem);
+        return response;
     }
 }

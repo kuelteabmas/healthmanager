@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +28,14 @@ public class MealtrackerServiceImpl implements MealtrackerService {
                 .map(mealtrackerMapper)
                 .collect(Collectors.toList());
         return mealtrackerResponses;
+    }
+
+    @Override
+    public MealtrackerResponse getMealtrackerById(UUID id) {
+        Optional<Mealtracker> mealtracker = mealTrackerRepository.findById(id);
+
+        MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtracker.get());
+        return mealtrackerResponse;
     }
 
     @Override

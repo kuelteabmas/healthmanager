@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.totaldevservices.mealtracker.enums.Constants.*;
 
@@ -29,6 +30,16 @@ public class MealtrackerController {
 
         log.info(MEALTRACKER_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MealtrackerResponse> getMealtrackerById(@PathVariable UUID id) {
+        log.info(GET_CALL.getMessage());
+
+        MealtrackerResponse response = mealtrackerService.getMealtrackerById(id);
+
+        log.info(MEALTRACKER_FETCHED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping

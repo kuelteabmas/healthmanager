@@ -34,6 +34,8 @@ public class MealtrackerServiceImpl implements MealtrackerService {
     public MealtrackerResponse getMealtrackerById(UUID id) {
         Optional<Mealtracker> mealtrackerOptional = mealTrackerRepository.findById(id);
 
+        // TODO: Throw Exception if ID doesn't exist in db
+
         MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtrackerOptional.get());
         return mealtrackerResponse;
     }
@@ -60,6 +62,8 @@ public class MealtrackerServiceImpl implements MealtrackerService {
     public MealtrackerResponse updateMealtracker(MealTrackerRequest request) {
         Optional<Mealtracker> mealtrackerOptional = mealTrackerRepository.findById(request.getId());
 
+        // TODO: Throw Exception if ID doesn't exist in db
+
         Mealtracker mealtracker = mealtrackerOptional.get();
         mealtracker.setFood(request.getFood());
         mealtracker.setFeltIll(request.isFeltIll());
@@ -70,5 +74,14 @@ public class MealtrackerServiceImpl implements MealtrackerService {
 
         MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtrackerOptional.get());
         return mealtrackerResponse;
+    }
+
+    @Override
+    public void deleteMealtracker(UUID id) {
+        Optional<Mealtracker> mealtrackerOptional = mealTrackerRepository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        mealTrackerRepository.delete(mealtrackerOptional.get());
     }
 }

@@ -61,4 +61,15 @@ public class MealtrackerController {
         log.info(MEALTRACKER_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMealtracker(@PathVariable UUID id) {
+
+        log.info(DELETE_CALL.getMessage());
+
+        mealtrackerService.deleteMealtracker(id);
+
+        log.info(MEALTRACKER_DELETED.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.totaldevservices.bowelmovement.enums.Constants.*;
 
@@ -32,13 +33,45 @@ public class BowelMovementController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BowelMovementResponse> getMealtrackerById(@PathVariable UUID id) {
+        log.info(GET_CALL.getMessage());
+
+        BowelMovementResponse response = bmService.getBowelMovementJournalItemById(id);
+
+        log.info(BOWELMOVEMENT_FETCHED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PostMapping
-    public void createBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
+    public ResponseEntity<BowelMovementResponse> createBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
 
         log.info(POST_CALL.getMessage());
 
-        bmService.createBowelMovementJournalItem(request);
+        BowelMovementResponse response = bmService.createBowelMovementJournalItem(request);
 
         log.info(BOWELMOVEMENT_CREATED.getMessage(), request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<BowelMovementResponse> updateBowelMovementJournalItem(@RequestBody BowelMovementRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        BowelMovementResponse response = bmService.updateBowelMovementJournalItem(request);
+
+        log.info(BOWELMOVEMENT_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBowelMovementJournalItem(@PathVariable UUID id) {
+
+        log.info(DELETE_CALL.getMessage());
+
+        bmService.deleteBowelMovementJournalItem(id);
+
+        log.info(BOWELMOVEMENT_DELETED.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +32,17 @@ public class BowelMovementServiceImpl implements BowelMovementService {
     }
 
     @Override
-    public void createBowelMovementJournalItem(BowelMovementRequest request) {
+    public BowelMovementResponse getBowelMovementJournalItemById(UUID id) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        BowelMovementResponse response = bowelMovementMapper.apply(bowelMovementOptional.get());
+        return response;
+    }
+
+    @Override
+    public BowelMovementResponse createBowelMovementJournalItem(BowelMovementRequest request) {
         BowelMovement bmJournalItem = new BowelMovement().builder()
                 .localDateTimeOfBM(LocalDateTime.now())
                 .stoolNature(request.getStoolNature())
@@ -38,5 +50,34 @@ public class BowelMovementServiceImpl implements BowelMovementService {
                 .build();
 
         repository.save(bmJournalItem);
+
+        BowelMovementResponse response = bowelMovementMapper.apply(bmJournalItem);
+        return response;
+    }
+
+    @Override
+    public BowelMovementResponse updateBowelMovementJournalItem(BowelMovementRequest request) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(request.getId());
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        BowelMovement bowelMovement = bowelMovementOptional.get();
+        bowelMovement.setBloodInStool(request.isBloodInStool());
+        bowelMovement.setStoolNature(request.getStoolNature());
+        bowelMovement.setLocalDateTimeOfBM(LocalDateTime.now());
+
+        repository.save(bowelMovement);
+
+        BowelMovementResponse bowelMovementResponse = bowelMovementMapper.apply(bowelMovementOptional.get());
+        return bowelMovementResponse;
+    }
+
+    @Override
+    public void deleteBowelMovementJournalItem(UUID id) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        repository.delete(bowelMovementOptional.get());
     }
 }

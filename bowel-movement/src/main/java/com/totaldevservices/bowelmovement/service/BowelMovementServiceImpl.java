@@ -71,4 +71,13 @@ public class BowelMovementServiceImpl implements BowelMovementService {
         BowelMovementResponse bowelMovementResponse = bowelMovementMapper.apply(bowelMovementOptional.get());
         return bowelMovementResponse;
     }
+
+    @Override
+    public void deleteBowelMovementJournalItem(UUID id) {
+        Optional<BowelMovement> bowelMovementOptional = repository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        repository.delete(bowelMovementOptional.get());
+    }
 }

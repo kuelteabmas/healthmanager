@@ -10,10 +10,12 @@ public enum Constants {
     BOWELMOVEMENT_CREATED("Bowel Movement journal item created {}"),
     BOWELMOVEMENT_FETCHED("Bowel Movement journal item fetched {}"),
     BOWELMOVEMENT_UPDATED("Bowel Movement journal item updated {}"),
+    BOWELMOVEMENT_DELETED("Bowel Movement journal item deleted {}"),
 
     GET_CALL("Starting GET call"),
     POST_CALL("Starting POST call"),
-    PUT_CALL("Starting PUT call");
+    PUT_CALL("Starting PUT call"),
+    DELETE_CALL("Starting DELETE call");
 
     private final String message;
 }

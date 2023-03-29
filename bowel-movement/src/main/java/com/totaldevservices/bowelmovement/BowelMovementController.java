@@ -63,4 +63,15 @@ public class BowelMovementController {
         log.info(BOWELMOVEMENT_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBowelMovementJournalItem(@PathVariable UUID id) {
+
+        log.info(DELETE_CALL.getMessage());
+
+        bmService.deleteBowelMovementJournalItem(id);
+
+        log.info(BOWELMOVEMENT_DELETED.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

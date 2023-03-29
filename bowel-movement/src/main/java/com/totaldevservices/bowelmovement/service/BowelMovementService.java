@@ -15,4 +15,6 @@ public interface BowelMovementService {
     BowelMovementResponse createBowelMovementJournalItem(BowelMovementRequest request);
 
     BowelMovementResponse updateBowelMovementJournalItem(BowelMovementRequest request);
+
+    void deleteBowelMovementJournalItem(UUID id);
 }

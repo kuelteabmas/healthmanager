@@ -12,5 +12,7 @@ public interface MealtrackerService {
 
     MealtrackerResponse getMealtrackerById(UUID id);
 
-    MealtrackerResponse createTracker(MealTrackerRequest mealTrackerRequest);
+    MealtrackerResponse createTracker(MealTrackerRequest request);
+
+    MealtrackerResponse updateMealtracker(MealTrackerRequest request);
 }

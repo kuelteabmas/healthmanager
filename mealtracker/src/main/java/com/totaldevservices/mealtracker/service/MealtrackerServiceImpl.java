@@ -32,9 +32,9 @@ public class MealtrackerServiceImpl implements MealtrackerService {
 
     @Override
     public MealtrackerResponse getMealtrackerById(UUID id) {
-        Optional<Mealtracker> mealtracker = mealTrackerRepository.findById(id);
+        Optional<Mealtracker> mealtrackerOptional = mealTrackerRepository.findById(id);
 
-        MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtracker.get());
+        MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtrackerOptional.get());
         return mealtrackerResponse;
     }
 
@@ -53,6 +53,22 @@ public class MealtrackerServiceImpl implements MealtrackerService {
         mealTrackerRepository.save(mealtracker);
 
         MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtracker);
+        return mealtrackerResponse;
+    }
+
+    @Override
+    public MealtrackerResponse updateMealtracker(MealTrackerRequest request) {
+        Optional<Mealtracker> mealtrackerOptional = mealTrackerRepository.findById(request.getId());
+
+        Mealtracker mealtracker = mealtrackerOptional.get();
+        mealtracker.setFood(request.getFood());
+        mealtracker.setFeltIll(request.isFeltIll());
+        mealtracker.setIllSymptoms(request.getIllSymptoms());
+        mealtracker.setLocalDateTimeOfMeal(LocalDateTime.now());
+
+        mealTrackerRepository.save(mealtracker);
+
+        MealtrackerResponse mealtrackerResponse = mealtrackerMapper.apply(mealtrackerOptional.get());
         return mealtrackerResponse;
     }
 }

@@ -51,4 +51,14 @@ public class MealtrackerController {
         log.info(MEALTRACKER_CREATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PutMapping
+    public ResponseEntity<MealtrackerResponse> updateMealtracker(@RequestBody MealTrackerRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        MealtrackerResponse response = mealtrackerService.updateMealtracker(request);
+
+        log.info(MEALTRACKER_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

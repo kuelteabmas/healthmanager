@@ -9,9 +9,11 @@ public enum Constants {
 
     MEALTRACKER_CREATED("Meal Tracker created {}"),
     MEALTRACKER_FETCHED("Meal Tracker fetched {}"),
+    MEALTRACKER_UPDATED("Meal Tracker updated {}"),
 
     GET_CALL("Starting GET call"),
-    POST_CALL("Starting POST call");
+    POST_CALL("Starting POST call"),
+    PUT_CALL("Starting PUT call");
 
     private final String message;
 }

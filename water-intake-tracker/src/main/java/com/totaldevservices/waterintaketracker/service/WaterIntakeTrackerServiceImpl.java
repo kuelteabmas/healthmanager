@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +32,15 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
     }
 
     @Override
-    public void createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
+    public WaterIntakeTrackerResponse getWaterIntakeTrackerItemById(UUID id) {
+        Optional<WaterIntakeTracker> waterIntakeTrackerOptional = repository.findById(id);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTrackerOptional.get());
+        return response;
+    }
+
+    @Override
+    public WaterIntakeTrackerResponse createWaterIntakeTracker(WaterIntakeTrackerRequest request) {
         WaterIntakeTracker waterIntakeTracker = new WaterIntakeTracker().builder()
                 .localDateTimeOfWaterIntake(LocalDateTime.now())
                 .amountOfWater(request.getAmountOfWater())
@@ -39,5 +49,36 @@ public class WaterIntakeTrackerServiceImpl implements WaterIntakeTrackerService 
                 .build();
 
         repository.save(waterIntakeTracker);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTracker);
+        return response;
+    }
+
+    @Override
+    public WaterIntakeTrackerResponse updateWaterIntakeTracker(WaterIntakeTrackerRequest request) {
+        Optional<WaterIntakeTracker> waterIntakeTrackerOptional = repository.findById(request.getId());
+
+        // TODO: Throw Exception if ID doesn't exist in db
+        // TODO: Validate requestBody
+
+        WaterIntakeTracker waterIntakeTracker = waterIntakeTrackerOptional.get();
+        waterIntakeTracker.setAmountOfWater(request.getAmountOfWater());
+        waterIntakeTracker.setLocalDateTimeOfWaterIntake(LocalDateTime.now());
+        waterIntakeTracker.setTypeOfWater(request.getTypeOfWater());
+        waterIntakeTracker.setWaterEnhancement(request.getWaterEnhancement());
+
+        repository.save(waterIntakeTracker);
+
+        WaterIntakeTrackerResponse response = waterIntakeTrackerMapper.apply(waterIntakeTracker);
+        return response;
+    }
+
+    @Override
+    public void deleteWaterIntakeTracker(UUID id) {
+        Optional<WaterIntakeTracker> waterIntakeTrackerOptional = repository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        repository.delete(waterIntakeTrackerOptional.get());
     }
 }

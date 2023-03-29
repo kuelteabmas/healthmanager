@@ -16,6 +16,7 @@
     <module>mealtracker</module>
     <module>bowel-movement</module>
     <module>health-summary</module>
+    <module>water-intake-tracker</module>
   </modules>
 
   <properties>

@@ -17,6 +17,7 @@
     <module>bowel-movement</module>
     <module>health-summary</module>
     <module>water-intake-tracker</module>
+      <module>amqp</module>
   </modules>
 
   <properties>

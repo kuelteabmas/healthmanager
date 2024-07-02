@@ -5,7 +5,7 @@ spring:
   application:
     name: healthsummary
   datasource:
-    url: jdbc:postgresql://localhost:5431/healthsummary
+    url: jdbc:postgresql://localhost:5431/healthsummarydb
     username: tds
     password: healthy
   jpa:

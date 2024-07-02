@@ -17,7 +17,7 @@ spring:
 #        format_sql: true
 #    show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/mealtracker
+    url: jdbc:postgresql://localhost:5432/mealtrackerdb
     username: tds
     password: healthy
   jpa:

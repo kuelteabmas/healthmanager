@@ -5,7 +5,7 @@ spring:
   application:
     name: bowelmovement
   datasource:
-    url: jdbc:postgresql://localhost:5433/bowelmovement
+    url: jdbc:postgresql://localhost:5433/bowelmovementdb
     username: tds
     password: healthy
   jpa:

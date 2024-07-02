@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="healthmanager" type="CompoundRunConfigurationType">
+    <toRun name="ApiGWApplication" type="Application" />
+    <toRun name="BowelMovementApplication" type="Application" />
+    <toRun name="EurekaServerApplication" type="Application" />
+    <toRun name="HealthSummaryApplication" type="Application" />
+    <toRun name="MealtrackerApplication" type="Application" />
+    <toRun name="WaterIntakeTrackerApplication" type="Application" />
+    <method v="2" />
+  </configuration>
+</component>

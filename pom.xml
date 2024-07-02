@@ -18,6 +18,7 @@
     <module>health-summary</module>
     <module>water-intake-tracker</module>
       <module>amqp</module>
+      <module>tds-commons</module>
   </modules>
 
   <properties>

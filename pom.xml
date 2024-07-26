@@ -17,8 +17,8 @@
     <module>bowel-movement</module>
     <module>health-summary</module>
     <module>water-intake-tracker</module>
-      <module>amqp</module>
-      <module>tds-commons</module>
+    <module>amqp</module>
+    <module>tds-commons</module>
   </modules>
 
   <properties>
@@ -29,6 +29,12 @@
     <spring.boot.dependencies.version>2.5.7</spring.boot.dependencies.version>
     <spring.cloud-version>2020.0.3</spring.cloud-version>
     <maven-compiler-plugin-version>3.13.0</maven-compiler-plugin-version>
+    <lombok.version>1.18.34</lombok.version>
+    <google.cloud.tools.jib.version>3.4.3</google.cloud.tools.jib.version>
+    <image>kuelteabmas/${project.artifactId}:${project.version}</image> <!--  DockerHub username -->
+    <image.type>eclipse-temurin</image.type>
+    <image.version>17</image.version>
+    <image.sha>sha256:2b47a8ea946ce1e5365a1562414ed576e378b7b670cadff3fb98ebecf2890cdc</image.sha>
   </properties>
 
   <dependencyManagement>
@@ -54,6 +60,8 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -77,6 +85,39 @@
             <execution>
               <goals>
                 <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>${google.cloud.tools.jib.version}</version>
+          <configuration>
+            <from>
+              <image>${image.type}:${image.version}@${image.sha}</image>
+              <platforms>
+                <platform>
+                  <architecture>arm64</architecture>
+                  <os>linux</os>
+                </platform>
+                <platform>
+                  <architecture>amd64</architecture>
+                  <os>linux</os>
+                </platform>
+              </platforms>
+            </from>
+            <to>
+              <tags>
+                <tags>latest</tags>
+              </tags>
+            </to>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
               </goals>
             </execution>
           </executions>

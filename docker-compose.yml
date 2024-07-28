@@ -82,6 +82,8 @@ services:
     ports:
       # Port used for the Zipkin UI and HTTP Api
       - "9411:9411"
+    networks:
+      - healthmanager-spring
 
   rabbitmq:
     image: rabbitmq:3.9.11-management-alpine
@@ -95,6 +97,8 @@ services:
     container_name: healthmanager-eureka-server
     ports:
       - "8761:8761"
+    networks:
+      - healthmanager-spring
     depends_on:
       - zipkin
   apigw:
@@ -102,12 +106,16 @@ services:
     container_name: healthmanager-apigw
     ports:
       - "9497:9497"
+    networks:
+      - healthmanager-spring
     depends_on:
       - zipkin
       - eureka-server
 
 networks:
   healthmanager-postgresnetwork:
+    driver: bridge
+  healthmanager-spring:
     driver: bridge
 
 volumes:

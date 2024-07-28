@@ -78,7 +78,7 @@ services:
   # instrumentation can send trace data to. Scribe is disabled by default.
   zipkin:
     image: openzipkin/zipkin
-    container_name: zipkin
+    container_name: healthmanager-zipkin
     ports:
       # Port used for the Zipkin UI and HTTP Api
       - "9411:9411"
@@ -97,6 +97,8 @@ services:
     container_name: healthmanager-eureka-server
     ports:
       - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     networks:
       - healthmanager-spring
     depends_on:
@@ -106,6 +108,8 @@ services:
     container_name: healthmanager-apigw
     ports:
       - "9497:9497"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     networks:
       - healthmanager-spring
     depends_on:

@@ -1,0 +1,34 @@
+server:
+  port: 9497
+
+spring:
+  application:
+    name: api-gateway
+  zipkin:
+    base-url: http://healthmanager-zipkin:9411
+  cloud:
+    gateway:
+      routes:
+        - id: mealtracker
+          uri: lb://MEALTRACKER
+          predicates:
+            - Path=/api/v1/mealtrackers/**
+        - id: bowelmovement
+          uri: lb://BOWELMOVEMENT
+          predicates:
+            - Path=/api/v1/bowelmovements/**
+        - id: waterintaketracker
+          uri: lb://WATERINTAKETRACKER
+          predicates:
+            - Path=/api/v1/waterintaketrackers/**
+        - id: healthsummary
+          uri: lb://HEALTHSUMMARY
+          predicates:
+            - Path=/api/v1/health-summary/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://healthmanager-eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

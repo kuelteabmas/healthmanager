@@ -90,6 +90,22 @@ services:
       - "5672:5672" # where microservices connect to
       - "15672:15672" # management console port username: guest | password: guest
 
+  eureka-server:
+    image: kuelteabmas/healthmanager-eureka-server:latest
+    container_name: healthmanager-eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - zipkin
+  apigw:
+    image: kuelteabmas/healthmanager-apigw:latest
+    container_name: healthmanager-apigw
+    ports:
+      - "9497:9497"
+    depends_on:
+      - zipkin
+      - eureka-server
+
 networks:
   healthmanager-postgresnetwork:
     driver: bridge

@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: healthsummary
+  datasource:
+    url: jdbc:postgresql://postgres-healthsummary:5431/healthsummarydb
+    username: tds
+    password: healthy
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  zipkin:
+    base-url: http://healthmanager-zipkin:9411
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://healthmanager-eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

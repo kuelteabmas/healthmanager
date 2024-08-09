@@ -116,6 +116,64 @@ services:
       - zipkin
       - eureka-server
 
+  # microservices
+  health-summary:
+    image: kuelteabmas/healthmanager-health-summary:latest
+    container_name: healthmanager-healthsummary
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - healthmanager-spring
+      - healthmanager-postgresnetwork
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres-healthsummary
+  mealtracker:
+    image: kuelteabmas/healthmanager-mealtracker:latest
+    container_name: healthmanager-mealtracker
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - healthmanager-spring
+      - healthmanager-postgresnetwork
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres-mealtracker
+  bowel-movement:
+    image: kuelteabmas/healthmanager-bowel-movement:latest
+    container_name: healthmanager-bowel-movement
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - healthmanager-spring
+      - healthmanager-postgresnetwork
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres-bowelmovement
+  water-intake-tracker:
+    image: kuelteabmas/healthmanager-water-intake-tracker:latest
+    container_name: healthmanager-water-intake-tracker
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - healthmanager-spring
+      - healthmanager-postgresnetwork
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres-waterintaketracker
+
 networks:
   healthmanager-postgresnetwork:
     driver: bridge
@@ -123,8 +181,8 @@ networks:
     driver: bridge
 
 volumes:
+  postgres-healthsummary:
   postgres-mealtracker:
   postgres-bowelmovement:
   postgres-waterintaketracker:
-  postgres-healthsummary:
   pgadmin:

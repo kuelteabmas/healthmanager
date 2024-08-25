@@ -5,7 +5,7 @@ spring:
   application:
     name: waterintaketracker
   datasource:
-    url: jdbc:postgresql://postgres-waterintaketracker:5434/waterintaketrackerdb
+    url: jdbc:postgresql://postgres-waterintaketracker:5432/waterintaketrackerdb # port is 5432 since we're using the container name 'postgres-waterintaketracker' which is known and registered with the network healthmanager-postgresnetwork
     username: tds
     password: healthy
   jpa:

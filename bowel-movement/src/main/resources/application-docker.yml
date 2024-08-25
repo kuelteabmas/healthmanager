@@ -5,7 +5,7 @@ spring:
   application:
     name: bowelmovement
   datasource:
-    url: jdbc:postgresql://postgres-bowelmovement:5433/bowelmovementdb
+    url: jdbc:postgresql://postgres-bowelmovement:5432/bowelmovementdb # port is 5432 since we're using the container name 'postgres-bowelmovement' which is known and registered with the network healthmanager-postgresnetwork
     username: tds
     password: healthy
   jpa:

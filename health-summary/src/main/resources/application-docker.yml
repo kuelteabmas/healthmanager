@@ -5,7 +5,7 @@ spring:
   application:
     name: healthsummary
   datasource:
-    url: jdbc:postgresql://postgres-healthsummary:5431/healthsummarydb
+    url: jdbc:postgresql://postgres-healthsummary:5432/healthsummarydb # port is 5432 since we're using the container name 'postgres-healthsummary' which is known and registered with the network healthmanager-postgresnetwork
     username: tds
     password: healthy
   jpa:
